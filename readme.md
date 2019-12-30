@@ -16,5 +16,5 @@ Note that you can import multiple profile files.
 ### GUI version
 1. Import profile - click Browse, select file and click Open
 Note that you can import multiple profile files.
-2. Select profiles to compare in both dropdown windows, click submit for each one. Make sure profiles are displayed in their respective windows.
+2. Add profiles to comparison windows by selecting profile in dropdown window and clicking add button. You can compare multiple profiles together if you prefer. 
 3. Click Compare button to compare profiles and display difference.

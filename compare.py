@@ -6,11 +6,11 @@ import random
 def read_config_file(file):
 	try:
 		config = configparser.RawConfigParser()
-		config.read(file)
+		config.read(file, encoding="utf-8")
 		return config
 	except configparser.MissingSectionHeaderError: 
 		config2 = configparser.RawConfigParser()
-		with open(file, 'r') as f:
+		with open(file, 'r', encoding="utf-8") as f:
 			config_string = '[standalone:'+os.path.basename(file)+']\n' + f.read()
 		config2.read_string(config_string)
 		return config2

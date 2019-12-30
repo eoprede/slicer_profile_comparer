@@ -7,9 +7,10 @@ sg.ChangeLookAndFeel('GreenTan')
 layout = [
 		[sg.Text('Import Profile', size=(15, 1), auto_size_text=False, justification='right'),      
 	     sg.InputText(size=(85, 1)), sg.FileBrowse(), sg.Open()],
-	    [sg.InputCombo([], size=(45, 10), key="selected_profile_1"), sg.Submit(key="submit_profile_1"),
-	     sg.Text("Difference", size=(54,1), justification="center"),
-	     sg.InputCombo([], size=(45, 10), key="selected_profile_2"), sg.Submit(key="submit_profile_2")],
+	    [sg.InputCombo([], size=(43, 10), key="selected_profile_1"), sg.Button("Add", key="submit_profile_1"),
+	     sg.Button("Clear", key="clear_profile_1"), sg.Text("Difference", size=(44,1), justification="center"),
+	     sg.InputCombo([], size=(43, 10), key="selected_profile_2"), sg.Button("Add Profile", key="submit_profile_2"),
+	     sg.Button("Clear", key="clear_profile_2")],
 	    [sg.Multiline(key="profile1", size=(55, 30)),
 	     sg.Multiline(key="diff", size=(55, 30)),
 	     sg.Multiline(key="profile2", size=(55, 30))],
@@ -35,9 +36,23 @@ while True:
 			sg.Popup('Error opening file', e)
 
 	elif button is "submit_profile_1":
-		window['profile1'].update(json.dumps(data[values['selected_profile_1']], indent=2, sort_keys=True))
+		try:
+			p = json.loads(values["profile1"])
+		except:
+			p = {}
+		p.update(data[values['selected_profile_1']])
+		window['profile1'].update(json.dumps(p, indent=2, sort_keys=True))
 	elif button is "submit_profile_2":
-		window['profile2'].update(json.dumps(data[values['selected_profile_2']], indent=2, sort_keys=True))
+		try:
+			p = json.loads(values["profile2"])
+		except:
+			p = {}
+		p.update(data[values['selected_profile_2']])
+		window['profile2'].update(json.dumps(p, indent=2, sort_keys=True))
+	elif button is "clear_profile_1":
+		window['profile1'].update("")
+	elif button is "clear_profile_2":
+		window['profile2'].update("")
 	elif button is "Compare":
 		try:
 			window["diff"].update(json.dumps(compare.return_config_diff(
